@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,6 +16,7 @@ public class Item implements Serializable {
 	@Id
 	@Column(name = "item_id")
 	private Long itemId;
+	
 	@Column(name = "item_name")
 	private String itemName;
 
@@ -30,6 +33,7 @@ public class Item implements Serializable {
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
+		this.price=price;
 	}
 
 	public Long getItemId() {

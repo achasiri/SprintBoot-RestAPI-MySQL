@@ -1,6 +1,6 @@
 package com.egiants.service;
 
-import java.util.Hashtable;
+import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,38 +12,39 @@ import com.egiants.model.Item;
 public class ItemService {
 	@Autowired
 	private ItemRepository itemRepository;
-	
-	//Hashtable<String, Item> persons= new Hashtable<String, Item>();
-	/*public ItemService() {
-		Item p1=new Item();
-		p1.setId("1");
-		p1.setAge(25);
-		p1.setFirstName("siri");
-		p1.setLastName("acha");
-		persons.put("1", p1);
-		
-		Item p2=new Item();
-		p2.setId("2");
-		p2.setAge(24);
-		p2.setFirstName("bultu");
-		p2.setLastName("nt");
-		persons.put("2", p2);	
+
+
+	// create
+	public void addItem(Item item) {
+		itemRepository.save(item);
 	}
-*/
+
+	// read all
+	public Iterable<Item> getAllItems() {
+		return itemRepository.findAll();
+	}
+
+	// read one
 	public Item getItem(Long id) {
-		/*if(persons.containsKey(id))
-			return persons.get(id);
-		else
-			return null;*/
-		if(itemRepository.findOne(id) != null)
+		if (itemRepository.findOne(id) != null)
 			return itemRepository.findOne(id);
 		else
 			return null;
 	}
 	
-	
-	public Iterable<Item> getAll(){
-		return itemRepository.findAll();
-		//return persons;
+	///search item by name and price
+	public Iterable<Item> search(String name,BigDecimal price) {
+		return itemRepository.findByitemNameInAndPriceIn(name, price);
 	}
+		
+	//update item - same as create as crudrep checks for id 
+	public void updateItem(String id,Item item) {
+		itemRepository.save(item);
+	}
+		
+	//delete item 
+	public void deleteItem(Long id) {
+		itemRepository.delete(id);
+	}
+	
 }

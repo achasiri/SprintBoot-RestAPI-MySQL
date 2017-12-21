@@ -1,9 +1,5 @@
 package com.egiants.app;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Hashtable;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.egiants.controller.ItemController;
-import com.egiants.model.Item;
 import com.egiants.service.ItemService;
 
 @RunWith(SpringRunner.class)
