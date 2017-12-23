@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan({"com.egiants"})
-@EntityScan("com.egiants.model")
+@EntityScan("com.egiants.entity")
 @EnableJpaRepositories("com.egiants.dao")
 public class DemoProjectApplication {
 

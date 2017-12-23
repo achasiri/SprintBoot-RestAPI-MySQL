@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.egiants.dao.ItemRepository;
-import com.egiants.model.Item;
+import com.egiants.entity.Item;
+import com.egiants.model.ItemModel;
 
 @Service
 public class ItemService {

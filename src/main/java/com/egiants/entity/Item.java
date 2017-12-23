@@ -1,13 +1,17 @@
-package com.egiants.model;
+package com.egiants.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.egiants.groups.CreateOrUpdateValidation;
+import com.egiants.groups.CreateValidation;
+import com.egiants.groups.UpdateValidation;
 
 @Entity
 @Table(name = "item")
@@ -23,8 +27,13 @@ public class Item implements Serializable {
 	@Column(name = "initial_price")
 	private BigDecimal price;
 
+	@Column(name = "brand_id")
+	private Long brandId;
 	
-
+	
+	@Column(name = "product_id")
+	private Long productId;
+	
 	public Item() {
 		// TODO Auto-generated constructor stub
 	}
@@ -58,6 +67,22 @@ public class Item implements Serializable {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public Long getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(Long brandId) {
+		this.brandId = brandId;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 }

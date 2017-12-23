@@ -26,7 +26,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.egiants.model.Item;
+import com.egiants.entity.Item;
 import com.egiants.service.ItemService;
 import com.egiants.utils.TestUtils;
 

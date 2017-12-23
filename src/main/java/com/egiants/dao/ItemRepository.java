@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.egiants.model.Item;
+import com.egiants.entity.Item;
 
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
