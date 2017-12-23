@@ -4,11 +4,10 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,11 +23,10 @@ public class ItemController {
 	ItemService is;
 	
 	//create/update
-	@RequestMapping(path="/add",consumes= MediaType.APPLICATION_JSON_VALUE ) // Map ONLY GET Requests
-	public @ResponseBody void addItem(@RequestParam Long id,@RequestParam String name
-			, @RequestParam BigDecimal price) {
-		Item addItem=new Item(id,name,price);	
-		is.addItem(addItem);
+	@RequestMapping(path="/post",consumes= MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE,method=RequestMethod.POST ) 
+	public @ResponseBody  void addItem(@RequestBody Item item) {
+		is.addItem(item);
+		//return is.getItem(item.getItemId()); //display the post(create/update) item back to user
 	}
 	
 	
