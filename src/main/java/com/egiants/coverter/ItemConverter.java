@@ -13,6 +13,10 @@ public class ItemConverter {
 				item.setItemName(im.getItemName());
 			if(im.getPrice()!=null)
 				item.setPrice(im.getPrice());
+			if(im.getBrandId()!=null)
+				item.setBrandId(im.getBrandId());
+			if(im.getProductId()!=null)
+				item.setProductId(im.getProductId());
 		}
 		return item;
 		
@@ -21,11 +25,15 @@ public class ItemConverter {
 		ItemModel im=new ItemModel();
 		if(item!=null) {
 			if(item.getItemId()!=null)
-				im.setItemId(im.getItemId());
+				im.setItemId(item.getItemId());
 			if(item.getItemName()!=null)
-				im.setItemName(im.getItemName());
+				im.setItemName(item.getItemName());
 			if(item.getPrice()!=null)
-				im.setPrice(im.getPrice());
+				im.setPrice(item.getPrice());
+			if(item.getBrandId()!=null)
+				im.setBrandId(item.getBrandId());
+			if(item.getProductId()!=null)
+				im.setProductId(item.getProductId());
 		}
 		return im;
 		

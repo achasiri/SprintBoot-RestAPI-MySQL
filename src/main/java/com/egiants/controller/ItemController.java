@@ -2,6 +2,8 @@ package com.egiants.controller;
 
 import java.math.BigDecimal;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
@@ -27,35 +29,56 @@ public class ItemController {
 	@Autowired
 	ItemService is;
 	
-	ItemConverter converter;
+	
+	ItemConverter converter=new ItemConverter() ;
 
 	// create/update
 	@RequestMapping(path = "/post", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-	public @ResponseBody void addItem(@Validated({ CreateOrUpdateValidation.class }) @RequestBody ItemModel item,
+	public @ResponseBody ItemModel addItem(@Validated({ CreateOrUpdateValidation.class }) @RequestBody ItemModel itemIn,
 			BindingResult bindingResult) {
+		Item itemEntity=converter.convertModelToEntity(itemIn);
 		ItemValidator itemValidator = new ItemValidator();
-		itemValidator.validate(item, bindingResult);
+		itemValidator.validate(itemIn, bindingResult);
 		if (bindingResult.hasErrors()) {
-			return;
+			throw new RuntimeException("Item has one or more fields missing/incorrect ");
 		} else {
-			if (converter.convertModelToEntity(item) != null) {
-				is.addItem(converter.convertModelToEntity(item));
+			if (itemEntity != null) {
+				is.addItem(itemEntity);
 			}
 		}
+		return itemIn;
 	}
 
 	// read all
 	@RequestMapping(path = "/findAll", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public @ResponseBody Iterable<Item> getAll() {
-		return is.getAllItems();
+		Iterable<Item> items = is.getAllItems();
+		if(items==null) {
+			throw new RuntimeException("No items are found");
+		}
+		else {
+			return is.getAllItems();
+		}
+		
 	}
 
 	// read by id
 	@RequestMapping(path = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-	public @ResponseBody Item getItem(@PathVariable("id") Long id) {
-		return is.getItem(id);
+	public @ResponseBody ItemModel getItem( @PathVariable("id") Long id) {
+		ItemModel itemModel=new ItemModel();
+		Item item=is.getItem(id);
+		if(item==null)
+		{
+			throw new RuntimeException("Item not found");
+		}
+		else {
+			itemModel=converter.convertEntityToModel(item);
+		}
+		return itemModel;
+		
 	}
 
+	//todo-mohan
 	@RequestMapping(path = "/search/{name}/{price}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public @ResponseBody Iterable<Item> search(@PathVariable("name") String name,
 			@PathVariable("price") BigDecimal price) {
@@ -63,9 +86,18 @@ public class ItemController {
 	}
 
 	// delete item
-	@RequestMapping(path = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody void deleteItem(@PathVariable("id") Long id) {
-		is.deleteItem(id);
+	@RequestMapping(path = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE,method=RequestMethod.DELETE)
+	public @ResponseBody void deleteItem(@Valid @PathVariable("id") Long id,BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			throw new RuntimeException("Item id is invalid ");
+		} else {
+			if (is.getItem(id)==null) {
+				throw new RuntimeException("Item  is not present ");
+			}
+			else {
+				is.deleteItem(id);
+			}
+			}
 	}
 
 }

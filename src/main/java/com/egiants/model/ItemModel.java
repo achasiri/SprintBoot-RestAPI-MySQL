@@ -25,8 +25,8 @@ public class ItemModel  {
 	//@Size (groups= {CreateValidation.class,UpdateValidation.class,CreateOrUpdateValidation.class},max=1000)
 	private BigDecimal price;
 
-	@NotNull (groups= {CreateValidation.class,UpdateValidation.class})
-	@Size (groups= {CreateValidation.class,UpdateValidation.class,CreateOrUpdateValidation.class},max=1000)
+	//@NotNull (groups= {CreateValidation.class,UpdateValidation.class})
+	//@Size (groups= {CreateValidation.class,UpdateValidation.class,CreateOrUpdateValidation.class},max=1000)
 	private String description;
 	
 	@NotNull (groups= {CreateValidation.class,UpdateValidation.class,CreateOrUpdateValidation.class})
